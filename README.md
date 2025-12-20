@@ -57,13 +57,20 @@ Sigue estos pasos para instalar y ejecutar Michi-WaBot en tu dispositivo.
 
 ## 🤝 𝗖𝗿𝗲𝗱𝗶𝘁𝗼𝘀 𝘆 𝗔𝗴𝗿𝗮𝗱𝗲𝗰𝗶𝗺𝗶𝗲𝗻𝘁𝗼𝘀
 
-* **Creador y Mantenedor Principal:** [Ado](https://github.com/Ado-rgb)
+* **Creador y Mantenedor Principal:** [ado](https://github.com/Ado-rgb)
 
     <div align="center">
       <a href="https://github.com/Ado-rgb">
         <img src="https://github.com/Ado-rgb.png" alt="Ado's GitHub Profile Picture" width="80" style="border-radius:50%;" />
       </a>
     </div>
+
+---
+
+## 🤝 *créditos y Agradecimientos*
+
+* **Creador y mantenedor secundario
+[WILKER OFC](https://github.com/sandovalwilkerson705-dotcom)
 
 ---
 
@@ -84,3 +91,5 @@ Sigue estos pasos para instalar y ejecutar Michi-WaBot en tu dispositivo.
 Este proyecto está bajo la **Licencia MIT**. Puedes usar, modificar y distribuir el código libremente, siempre y cuando mantengas los créditos originales.
 
 © 2025 Ado.
+
+© 2026 WILKER OFC.
