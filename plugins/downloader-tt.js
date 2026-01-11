@@ -45,7 +45,7 @@ ${usedPrefix + command} https://www.tiktok.com/@usuario/video/123456789`
   try {
     await conn.sendMessage(m.chat, { react: { text: '⏳', key: m.key } })
 
-    let apiURL = `https://api-adonix.ultraplus.click/download/tiktok?apikey=WilkerKeydukz9l6871&url=${encodeURIComponent(args[0])}`
+    let apiURL = `https://api-adonix.ultraplus.click/download/tiktok?apikey=Mikeywilker1=${encodeURIComponent(args[0])}`
     let response = await fetch(apiURL)
     let data = await response.json()
 
