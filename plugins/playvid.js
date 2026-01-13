@@ -18,22 +18,14 @@ const thumb = (await conn.getFile(thumbnail)).data
 await conn.sendMessage(m.chat, { image: thumb, caption: info }, { quoted: m })
 
 // Solo procesar audio (música)
-const audioUrl = await getAud(url)
-if (!audioUrl) throw '⚠ No se pudo obtener el audio.'
-m.reply(`> ❀ *Audio procesado. Servidor:* \`Sky API\``)
-
-// Enviar audio directamente con la URL
-await conn.sendMessage(m.chat, { 
-  audio: { url: audioUrl }, 
-  fileName: `${title.replace(/[^\w\s]/gi, '')}.mp3`, 
-  mimetype: 'audio/mpeg' 
-}, { quoted: m })
-
+const audio = await getAud(url)
+if (!audio?.url) throw '⚠ No se pudo obtener el audio.'
+m.reply(`> ❀ *Audio procesado. Servidor:* \`${audio.api}\``)
+await conn.sendMessage(m.chat, { audio: { url: audio.url }, fileName: `${title}.mp3`, mimetype: 'audio/mpeg' }, { quoted: m })
 await m.react('✔️')
 
 } catch (e) {
 await m.react('✖️')
-console.error('Error en handler:', e)
 return conn.reply(m.chat, typeof e === 'string' ? e : '⚠︎ Se ha producido un problema.\n> Usa *' + usedPrefix + 'report* para informarlo.\n\n' + e.message, m)
 }}
 
@@ -44,56 +36,30 @@ handler.group = true
 export default handler
 
 async function getAud(url) {
+const apis = [
+{ 
+  api: 'Adonix', 
+  endpoint: `https://api-adonix.ultraplus.click/download/ytaudio?apikey=Mikeywilker1&url=${encodeURIComponent(url)}`, 
+  extractor: res => res.data?.url 
+}
+]
+return await fetchFromApis(apis)
+}
+
+async function fetchFromApis(apis) {
+for (const { api, endpoint, extractor } of apis) {
 try {
-console.log('Obteniendo audio para URL:', url)
-const endpoint = 'https://api-sky.ultraplus.click/youtube-mp3'
 const controller = new AbortController()
-const timeout = setTimeout(() => controller.abort(), 30000)
-
-const options = {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-    'apikey': 'MIKEYWILKER',
-    'User-Agent': 'Mozilla/5.0'
-  },
-  body: JSON.stringify({ url }),
-  signal: controller.signal
-}
-
-const response = await fetch(endpoint, options)
+const timeout = setTimeout(() => controller.abort(), 10000)
+const res = await fetch(endpoint, { signal: controller.signal }).then(r => r.json())
 clearTimeout(timeout)
-
-if (!response.ok) {
-  console.error('Error en respuesta HTTP:', response.status, response.statusText)
-  return null
-}
-
-const data = await response.json()
-console.log('Respuesta API:', data)
-
-// Verificar diferentes formatos de respuesta
-if (data.status && data.result) {
-  return data.result
-} else if (data.url) {
-  return data.url
-} else if (data.downloadUrl) {
-  return data.downloadUrl
-} else if (data.link) {
-  return data.link
-} else if (data.audio_url) {
-  return data.audio_url
-} else if (data.mp3) {
-  return data.mp3
-} else {
-  console.error('Formato de respuesta no reconocido:', data)
-  return null
-}
-
+const link = extractor(res)
+if (link) return { url: link, api }
 } catch (e) {
-console.error('Error en getAud:', e.message)
-return null
+console.error(`Error en API ${api}:`, e.message)
 }
+}
+return null
 }
 
 function formatViews(views) {
