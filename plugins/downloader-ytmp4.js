@@ -1,3 +1,4 @@
+
 import fetch from 'node-fetch'
 import yts from 'yt-search'
 
@@ -31,15 +32,27 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
       return
     }
 
-    let apiUrl = `https://myapiadonix.vercel.app/api/ytmp3?url=${encodeURIComponent(url)}`
+    // Usando la nueva API con parámetro url
+    let apiUrl = `https://api-adonix.ultraplus.click/download/ytaudio?apikey=Mikeywilker1&url=${encodeURIComponent(url)}`
     let res = await fetch(apiUrl)
     if (!res.ok) throw new Error('Error al conectar con la API.')
     let json = await res.json()
-    if (!json.success) throw new Error('No se pudo obtener información del video.')
+    
+    // Verificar estructura de respuesta
+    if (json.status !== 'success') {
+      throw new Error('No se pudo obtener información del video.')
+    }
 
-    let { title, quality, download } = json.data
+    // Extraer datos según la estructura esperada de la nueva API
+    let title = json.data?.title || videoInfo?.title || 'Audio sin título'
+    let download = json.data?.audio
+    let quality = json.data?.quality || 'Desconocida'
     let duration = videoInfo?.timestamp || 'Desconocida'
-    let thumbnail = videoInfo?.thumbnail || null
+    let thumbnail = json.data?.thumbnail || videoInfo?.thumbnail || null
+
+    if (!download) {
+      throw new Error('No se pudo obtener el enlace de descarga del audio.')
+    }
 
     await conn.sendMessage(m.chat, {
       text: `🎵 *${title}*\n📀 Duración: *${duration}*\n🎚 Calidad: *${quality}*`,
@@ -58,15 +71,17 @@ let handler = async (m, { conn, args, usedPrefix, command }) => {
     await conn.sendMessage(m.chat, {
       audio: { url: download },
       mimetype: 'audio/mpeg',
-      fileName: `${title}.mp3`,
+      fileName: `${title.replace(/[^\w\s]/gi, '')}.mp3`,
       ptt: false
     }, { quoted: m })
 
     await m.react('✅')
   } catch (e) {
-    console.error(e)
+    console.error('Error en playaudio:', e)
     await m.react('❌')
-    await conn.sendMessage(m.chat, { text: 'Ocurrió un error al procesar la solicitud.' }, { quoted: m })
+    await conn.sendMessage(m.chat, { 
+      text: `Ocurrió un error al procesar la solicitud:\n${e.message || 'Error desconocido'}` 
+    }, { quoted: m })
   }
 }
 
