@@ -36,14 +36,14 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       message: {
         documentMessage: {
           title: `『 ${title} 』`,
-          fileName: global.botname || "Shadow Bot",
+          fileName: global.botname || "Wamichibot",
           jpegThumbnail: thumb3
         }
       }
     }
 
     const caption = `
-✧━───『 𝙸𝚗𝚏𝚘 𝚍𝚎𝚕 𝚅𝚒𝚍𝚎𝚘 』───━✧
+✧━───『 *𝙸𝚗𝚏𝚘 𝚍𝚎𝚕 comando* 』───━✧
 
 🎼 𝑻𝒊́𝒕𝒖𝒍𝒐: ${title}
 📺 𝑪𝒂𝒏𝒂𝒍: ${authorName}
@@ -51,8 +51,8 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
 ⏳ 𝑫𝒖𝒓𝒂𝒄𝒊𝒐́𝒏: ${durationTimestamp}
 🌐 𝑬𝒏𝒍𝒂𝒄𝒆: ${url}
 
-✧━───『 𝑺𝒉𝒂𝒅𝒐𝒘 𝑩𝒐𝒕 』───━✧
-⚡ 𝑷𝒐𝒘𝒆𝒓𝒆𝒅 𝒃𝒚 𝒀𝒐𝒔𝒖𝒆 ⚡
+ ✧━───『 *Michi Wabot* 』───━✧
+    ⚡  *By WILKER OFC* ⚡
 `
 
     const thumb = (await conn.getFile(thumbnail)).data
@@ -61,7 +61,7 @@ const handler = async (m, { conn, text, usedPrefix, command }) => {
       {
         image: thumb,
         caption,
-        footer: "⚡ Shadow — Descargas rápidas ⚡",
+        footer: "⚡ Michi wabot — Descargas rápidas ⚡",
         buttons: [
           { buttonId: `shadowaudio ${url}`, buttonText: { displayText: "🎵 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙧 𝘼𝙪𝙙𝙞𝙤" }, type: 1 },
           { buttonId: `shadowvideo ${url}`, buttonText: { displayText: "🎬 𝘿𝙚𝙨𝙘𝙖𝙧𝙜𝙖𝙧 𝙑𝙞𝙙𝙚𝙤" }, type: 1 }
