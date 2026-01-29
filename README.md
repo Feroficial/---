@@ -26,7 +26,7 @@ Diseñado para funcionar correctamente en **grupos**, con sistemas de **economí
 ## 🔗 Repositorio Oficial
 
 📦 **GitHub:**  
-https://github.com/Feroficial/Denji-Bot.git
+https://github.com/Feroficial/Denji-Bot-.git
 
 ---
 
