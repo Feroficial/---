@@ -2,7 +2,7 @@ let handler = async (m, { conn }) => {
 
   try {
 
-    const cooldown = 2 * 60 * 1000 // 2 minutos
+    const cooldown = 3 * 60 * 1000 // 2 minutos
 
     const now = Date.now()
 
