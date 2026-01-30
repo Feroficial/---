@@ -68,11 +68,11 @@ const handler = async (m, { conn, args }) => {
 
 }
 
-handler.command = ['adddenjis']
+handler.command = ['addenjis']
 
 handler.tags = ['owner']
 
-handler.help = ['adddenjis']
+handler.help = ['addenjis']
 
 handler.owner = true
 
